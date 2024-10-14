@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteContact, selectContacts } from '../../redux/contactsSlice';
 import { selectNameFilter } from '../../redux/filtersSlice';
+import Contact from '../Contact/Contact';
 import styles from './ContactList.module.css';
 
 const ContactList = () => {
@@ -20,15 +21,12 @@ const ContactList = () => {
     return (
         <ul className={styles.list}>
             {filteredContacts.map(({ id, name, number }) => (
-                <li key={id} className={styles.item}>
-                    <p>{name}: {number} </p>
-                    <button
-                        onClick={() => dispatch(deleteContact(id))}
-                        className={styles.button}
-                    >
-                        Delete
-                    </button>
-                </li>
+                <Contact
+                    key={id}
+                    name={name}
+                    number={number}
+                    onDelete={() => dispatch(deleteContact(id))}
+                />
             ))}
         </ul>
     );
